@@ -1,0 +1,58 @@
+﻿.active {
+    color: #111;
+    border-bottom: 3px solid #f2f2f2;
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+.navbar-nav li a {
+    margin: 0;
+    font-size: 22px;
+    font-family: Verdana;
+}
+
+.btn {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+.btn:hover {
+    filter: brightness(90%);
+}
+
+.artistAlbum {
+    display: inline;
+    border: 1px solid #333;
+    border-radius: 15px;
+    font-size: 20px;
+    padding: 10px;
+    width: 300px;
+    height: 50px;
+}
+
+.form-control {
+    vertical-align: top;
+    display: inline;
+}
+
+.music-grid-header {
+    font-size: 20px;
+}
+
+.general-contianer {
+    padding: 10px; 
+    text-align: center;
+}
+
+.center-container {
+    margin: 0 auto;
+    padding: 10px;
+}
