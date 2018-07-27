@@ -222,6 +222,8 @@
     <Compile Include="Helpers\helpers.cs" />
     <Compile Include="resources\classes\Music.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="resources\database\IMusicDAO.cs" />
+    <Compile Include="resources\database\MusicDAOImpl.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

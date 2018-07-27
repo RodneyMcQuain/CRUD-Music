@@ -1,4 +1,5 @@
-﻿using System;
+﻿using musicP.resources.database;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,29 +11,19 @@ namespace musicP
 {
     public partial class AlbumDetails : System.Web.UI.Page
     {
+        private IMusicDAO musicDao = new MusicDAOImpl();
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                var id = Request.QueryString["Id"];
+                int musicID = Int32.Parse(Request.QueryString["Id"]);
 
-                using (SqlConnection conn = Helpers.DBUtils.getConnection())
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM music WHERE musicID = " + id + ";", conn))
-                {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            var artist = dr.GetString(1);
-                            var album = dr.GetString(2);
-                            Music music = new Music(artist, album);
-
-                            lblArtistAlbumAlbumDetails.Text = music.ToString();
-                            tbArtistAlbumDetails.Text = music.artist;
-                            tbAlbumAlbumDetails.Text = music.album;
-                        }
-                    }
-                }
+                Music music = musicDao.getMusicByID(musicID);
+                lblArtistAlbumAlbumDetails.Text = music.ToString();
+                tbArtistAlbumDetails.Text = music.artist;
+                tbAlbumAlbumDetails.Text = music.album;
             }
          }
 
@@ -56,27 +47,19 @@ namespace musicP
                 return;
             }
 
-            var id = Request.QueryString["Id"];
-            Music music = new Music(tbArtistAlbumDetails.Text, tbAlbumAlbumDetails.Text);
+            int id = Int32.Parse(Request.QueryString["Id"]);
+            Music music = new Music(id, tbArtistAlbumDetails.Text, tbAlbumAlbumDetails.Text);
 
-            using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("UPDATE music SET artist = '" + music.artist + "', album = '" + music.album + "' WHERE musicID = " + id + ";", conn))
-            {
-                cmd.ExecuteReader();
-            }
+            musicDao.insertMusic(music);
 
             lblArtistAlbumAlbumDetails.Text = music.ToString();
         }
 
         protected void btDelete_Click(object sender, EventArgs e)
         {
-            var id = Request.QueryString["Id"];
+            int musicID = Int32.Parse(Request.QueryString["Id"]);
 
-            using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("DELETE FROM music WHERE musicID = " + id + ";", conn))
-            {
-                cmd.ExecuteReader();
-            }
+            musicDao.deleteMusicByID(musicID);
 
             Response.Redirect("default.aspx");
         }

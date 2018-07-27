@@ -8,14 +8,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using musicP.Helpers;
+using musicP.resources.database;
 
 namespace musicP
 {
     public partial class _Default : Page
     {
+        private IMusicDAO musicDao = new MusicDAOImpl();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            loadAristsAndAlbums();
+            //     loadAristsAndAlbums();
             randomMusic();
         }
         
@@ -24,33 +27,12 @@ namespace musicP
             Music randomMusic;
             if (Cache["randomMusic"] == null)
             {
+                List<Music> musics = musicDao.getAllMusic();
+
                 Random rnd = new Random();
+                int randomMusicNum = rnd.Next(0, musics.Count());
 
-                using (SqlConnection conn = Helpers.DBUtils.getConnection())
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM music;", conn))
-                {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        int count = 0;
-                        ArrayList artistsAndAlbums = new ArrayList();
-                        int musicID;
-                        string artist;
-                        string album;
-                        while (dr.Read())
-                        {
-                            musicID = dr.GetInt32(0);
-                            artist = dr.GetString(1);
-                            album = dr.GetString(2);
-                            Music music = new Music(musicID, artist, album);
-                            artistsAndAlbums.Add(music);
-
-                            count++;
-                        }
-
-                        int randomAlbumNum = rnd.Next(0, count);
-                        randomMusic = (Music)artistsAndAlbums[randomAlbumNum];
-                    }
-                }
+                randomMusic = musics[randomMusicNum];
 
                 Cache.Insert("randomMusic", randomMusic, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
             }
@@ -63,14 +45,14 @@ namespace musicP
             btRandomMusic.Text = randomMusic.ToString();
         }
 
-        protected void loadAristsAndAlbums()
+        /*protected void loadAristsAndAlbums()
         {
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM music;", conn))
             {
                 cmd.ExecuteReader();
             }
-        }
+        }*/
 
         protected void addButton_Click(object sender, EventArgs e)
         {
@@ -96,11 +78,7 @@ namespace musicP
             string album = tbAlbum.Text;
             Music music = new Music(artist, album);
 
-            using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO music (artist, album) VALUES('" + music.artist + "', '" + music.album + "');", conn))
-            {
-                cmd.ExecuteNonQuery();
-            }
+            musicDao.insertMusic(music);
 
             Response.Redirect("Default.aspx");
         }
