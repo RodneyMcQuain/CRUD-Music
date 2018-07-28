@@ -30,9 +30,6 @@ namespace musicP.resources.database
                         Music music = new Music(musicID, artist, album);
                         musics.Add(music);
                     }
-
-                    //int randomAlbumNum = rnd.Next(0, count);
-                    //randomMusic = (Music)artistsAndAlbums[randomAlbumNum];
                 }
             }
 
