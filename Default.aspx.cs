@@ -18,7 +18,6 @@ namespace musicP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //     loadAristsAndAlbums();
             randomMusic();
         }
         
@@ -44,15 +43,6 @@ namespace musicP
             lblRandomMusicID.Text = randomMusic.musicID.ToString();
             btRandomMusic.Text = randomMusic.ToString();
         }
-
-        /*protected void loadAristsAndAlbums()
-        {
-            using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("SELECT * FROM music;", conn))
-            {
-                cmd.ExecuteReader();
-            }
-        }*/
 
         protected void addButton_Click(object sender, EventArgs e)
         {
