@@ -50,7 +50,7 @@ namespace musicP
             int id = Int32.Parse(Request.QueryString["Id"]);
             Music music = new Music(id, tbArtistAlbumDetails.Text, tbAlbumAlbumDetails.Text);
 
-            musicDao.insertMusic(music);
+            musicDao.updateMusic(music);
 
             lblArtistAlbumAlbumDetails.Text = music.ToString();
         }
