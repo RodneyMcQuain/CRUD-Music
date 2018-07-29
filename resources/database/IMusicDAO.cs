@@ -9,9 +9,9 @@ namespace musicP.resources.database
     interface IMusicDAO
     {
         List<Music> getAllMusic();
-        Music getMusicByID(int musicID);
-        void updateMusic(Music music);
-        void insertMusic(Music music);
-        void deleteMusicByID(int musicID);
+        Music GetMusicByID(int musicID);
+        void UpdateMusic(Music music);
+        void InsertMusic(Music music);
+        void DeleteMusicByID(int musicID);
     }
 }

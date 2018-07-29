@@ -68,7 +68,7 @@ namespace musicP
             string album = tbAlbum.Text;
             Music music = new Music(artist, album);
 
-            musicDao.insertMusic(music);
+            musicDao.InsertMusic(music);
 
             Response.Redirect("Default.aspx");
         }

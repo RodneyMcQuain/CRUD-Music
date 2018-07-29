@@ -36,7 +36,7 @@ namespace musicP.resources.database
             return musics;
         }
 
-        void IMusicDAO.deleteMusicByID(int musicID)
+        void IMusicDAO.DeleteMusicByID(int musicID)
         {
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = new SqlCommand("DELETE FROM music WHERE musicID = " + musicID + ";", conn))
@@ -45,7 +45,7 @@ namespace musicP.resources.database
             }
         }
 
-        Music IMusicDAO.getMusicByID(int musicID)
+        Music IMusicDAO.GetMusicByID(int musicID)
         {
             Music music = null;
 
@@ -67,7 +67,7 @@ namespace musicP.resources.database
             return music;
         }
 
-        void IMusicDAO.insertMusic(Music music)
+        void IMusicDAO.InsertMusic(Music music)
         {
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = new SqlCommand("INSERT INTO music (artist, album) VALUES('" + music.artist + "', '" + music.album + "');", conn))
@@ -76,7 +76,7 @@ namespace musicP.resources.database
             }
         }
 
-        void IMusicDAO.updateMusic(Music music)
+        void IMusicDAO.UpdateMusic(Music music)
         {
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = new SqlCommand("UPDATE music SET artist = '" + music.artist + "', album = '" + music.album + "' WHERE musicID = " + music.musicID + ";", conn))

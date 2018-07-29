@@ -20,7 +20,7 @@ namespace musicP
             {
                 int musicID = Int32.Parse(Request.QueryString["Id"]);
 
-                Music music = musicDao.getMusicByID(musicID);
+                Music music = musicDao.GetMusicByID(musicID);
                 lblArtistAlbumAlbumDetails.Text = music.ToString();
                 tbArtistAlbumDetails.Text = music.artist;
                 tbAlbumAlbumDetails.Text = music.album;
@@ -50,7 +50,7 @@ namespace musicP
             int id = Int32.Parse(Request.QueryString["Id"]);
             Music music = new Music(id, tbArtistAlbumDetails.Text, tbAlbumAlbumDetails.Text);
 
-            musicDao.updateMusic(music);
+            musicDao.UpdateMusic(music);
 
             lblArtistAlbumAlbumDetails.Text = music.ToString();
         }
@@ -59,7 +59,7 @@ namespace musicP
         {
             int musicID = Int32.Parse(Request.QueryString["Id"]);
 
-            musicDao.deleteMusicByID(musicID);
+            musicDao.DeleteMusicByID(musicID);
 
             Response.Redirect("default.aspx");
         }
