@@ -47,12 +47,55 @@
     font-size: 20px;
 }
 
-.general-contianer {
-    padding: 10px; 
-    text-align: center;
-}
-
 .center-container {
     margin: 0 auto;
     padding: 10px;
+}
+
+.general-contianer {
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 10px 10px 10px;
+}
+
+.login-register-container {
+    margin-top: 10px;
+    width: 520px;
+    border: 1px solid #f2f2f2
+}
+
+.login-register-sub-container {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+}
+
+.login-register {
+    font-size: 44px;
+    font-weight: bold;
+}
+
+.invalid, .valid {
+    font-size: 20px;
+    text-align: center;
+}
+
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    content: "✘ ";
+}
+
+.valid {
+    color: green;
+}
+
+.valid:before {
+    content: "✓ ";
 }
