@@ -1,88 +1,89 @@
-﻿using System;
-using System.Collections;
+﻿using musicP.resources.classes;
+using musicP.resources.database;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using musicP.Helpers;
-using musicP.resources.database;
 
 namespace musicP
 {
-    public partial class _Default : Page
+    public partial class Default : System.Web.UI.Page
     {
-        private IMusicDAO musicDao = new MusicDAOImpl();
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            randomMusic();
-        }
-        
-        protected void randomMusic()
-        {
-            Music randomMusic;
-            if (Cache["randomMusic"] == null)
-            {
-                List<Music> musics = musicDao.getAllMusic();
 
-                Random rnd = new Random();
-                int randomMusicNum = rnd.Next(0, musics.Count());
-
-                randomMusic = musics[randomMusicNum];
-
-                Cache.Insert("randomMusic", randomMusic, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
-            }
-            else
-            {
-                randomMusic = (Music)Cache["randomMusic"];
-            }
-
-            lblRandomMusicID.Text = randomMusic.musicID.ToString();
-            btRandomMusic.Text = randomMusic.ToString();
         }
 
-        protected void addButton_Click(object sender, EventArgs e)
+        protected void btLogin_Click(object sender, EventArgs e)
         {
-            if (tbArtist.Text.Length == 0 || tbArtist.Text.Trim().Equals("") || tbAlbum.Text.Length == 0 || tbAlbum.Text.Trim().Equals(""))
+            if (EmptyControl(tbUsername) ||
+                EmptyControl(tbPassword))
             {
-                Label lblModalTitle = (Label)Master.FindControl("lblModalTitle");
-                lblModalTitle.Text = "Error";
-
-                Label lblModalBody = (Label)Master.FindControl("lblModalBody");
-                lblModalBody.Text = "The artist and album fields must be filled.";
-
-                LinkButton btModalButton1 = (LinkButton)Master.FindControl("btModalButton1");
-                btModalButton1.Text = "Okay";
-
-                LinkButton btModalCloseButton = (LinkButton)Master.FindControl("btModalCloseButton");
-                btModalCloseButton.Text = "Close";
-
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "aModal", "$('#aModal').modal();", true);
                 return;
             }
 
-            string artist = tbArtist.Text;
-            string album = tbAlbum.Text;
-            Music music = new Music(artist, album);
+            string username = tbUsername.Text;
+            string password = tbPassword.Text;
 
-            musicDao.InsertMusic(music);
+            //salt
 
-            Response.Redirect("Default.aspx");
+            IUserDAO userDao = new UserDAOImpl();
+            User user = userDao.GetUserByUsernameAndPassword(username, password);
+
+            AttemptLogin(user);
         }
 
-        protected void GridView1_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
+        private bool EmptyControl(TextBox control)
         {
-            var musicID = Convert.ToInt32(musicGrid.DataKeys[e.NewSelectedIndex].Value);
-            Response.Redirect("AlbumDetails.aspx?Id=" + musicID);
+            if (control.Text.Trim().Equals(""))
+                return true;
+            else
+                return false;
         }
 
-        protected void btRandomMusic_Click(object sender, EventArgs e)
+        private void AttemptLogin(User user)
         {
-            var musicID = lblRandomMusicID.Text;
-            Response.Redirect("AlbumDetails.aspx?Id=" + musicID);
+            if (IsUser(user))
+            {
+                Session["userID"] = user.userID;
+                Response.Redirect("MainMenu.aspx");
+            }
+            else
+            {
+                Alert("Login Error", "Username and password were not correct.");
+            }
+        }
+
+        private bool IsUser(User user)
+        {
+            if (user != null)
+                return true;
+            else
+                return false;
+        }
+
+        private void Alert(string title, string body)
+        {
+            Label lblModalTitle = (Label)Master.FindControl("lblModalTitle");
+            lblModalTitle.Text = title;
+
+            Label lblModalBody = (Label)Master.FindControl("lblModalBody");
+            lblModalBody.Text = body;
+
+            LinkButton btModalButton1 = (LinkButton)Master.FindControl("btModalButton1");
+            btModalButton1.Text = "Okay";
+
+            LinkButton btModalCloseButton = (LinkButton)Master.FindControl("btModalCloseButton");
+            btModalCloseButton.Text = "Close";
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "aModal", "$('#aModal').modal();", true);
+        }
+
+        protected void btRegister_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Register.aspx");
         }
     }
 }

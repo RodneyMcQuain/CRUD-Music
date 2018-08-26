@@ -10,78 +10,42 @@
 namespace musicP {
     
     
-    public partial class _Default {
+    public partial class Default {
         
         /// <summary>
-        /// tbArtist control.
+        /// tbUsername control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbArtist;
+        protected global::System.Web.UI.WebControls.TextBox tbUsername;
         
         /// <summary>
-        /// tbAlbum control.
+        /// tbPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAlbum;
+        protected global::System.Web.UI.WebControls.TextBox tbPassword;
         
         /// <summary>
-        /// addButton control.
+        /// btLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton addButton;
+        protected global::System.Web.UI.WebControls.Button btLogin;
         
         /// <summary>
-        /// musicGrid control.
+        /// btRegister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView musicGrid;
-        
-        /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
-        
-        /// <summary>
-        /// lblRandomMusic control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRandomMusic;
-        
-        /// <summary>
-        /// btRandomMusic control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btRandomMusic;
-        
-        /// <summary>
-        /// lblRandomMusicID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRandomMusicID;
+        protected global::System.Web.UI.WebControls.LinkButton btRegister;
     }
 }
