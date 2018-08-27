@@ -98,7 +98,7 @@ namespace musicP
 
             musicDao.InsertMusic(music);
 
-            Response.Redirect("Default.aspx");
+            Response.Redirect("MainMenu.aspx");
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, GridViewSelectEventArgs e)
