@@ -36,22 +36,16 @@ namespace musicP.resources.database
             return musics;
         }
 
-        void IMusicDAO.DeleteMusicByID(int musicID)
-        {
-            using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("DELETE FROM music WHERE musicID = " + musicID + ";", conn))
-            {
-                cmd.ExecuteReader();
-            }
-        }
-
         Music IMusicDAO.GetMusicByID(int musicID)
         {
             Music music = null;
 
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("SELECT * FROM music WHERE musicID = " + musicID + ";", conn))
+            using (SqlCommand cmd = conn.CreateCommand())
             {
+                cmd.CommandText = "SELECT userID, artist, album FROM music WHERE musicID = @musicID;";
+                cmd.Parameters.AddWithValue("@musicID", musicID);
+
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     if (dr.Read())
@@ -85,8 +79,25 @@ namespace musicP.resources.database
         void IMusicDAO.UpdateMusic(Music music)
         {
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("UPDATE music SET artist = '" + music.artist + "', album = '" + music.album + "' WHERE musicID = " + music.musicID + ";", conn))
+            using (SqlCommand cmd = conn.CreateCommand())
             {
+                cmd.CommandText = "UPDATE music SET artist = @artist, album = @album WHERE musicID = @musicID;";
+                cmd.Parameters.AddWithValue("@artist", music.artist);
+                cmd.Parameters.AddWithValue("@album", music.album);
+                cmd.Parameters.AddWithValue("@musicID", music.musicID);
+
+                cmd.ExecuteReader();
+            }
+        }
+
+        void IMusicDAO.DeleteMusicByID(int musicID)
+        {
+            using (SqlConnection conn = Helpers.DBUtils.getConnection())
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "DELETE FROM music WHERE musicID = @musicID;";
+                cmd.Parameters.AddWithValue("@musicID", musicID);
+
                 cmd.ExecuteReader();
             }
         }
