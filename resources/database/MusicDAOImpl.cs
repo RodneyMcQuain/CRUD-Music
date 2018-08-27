@@ -9,24 +9,24 @@ namespace musicP.resources.database
 {
     public class MusicDAOImpl : IMusicDAO
     {
-        public List<Music> getAllMusic()
+        public List<Music> GetAllMusicByUserID(int userID)
         {
-            List<Music> musics;
+            List<Music> musics = new List<Music>();
 
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("SELECT * FROM music;", conn))
+            using (SqlCommand cmd = conn.CreateCommand())
             {
+                cmd.CommandText = "SELECT * music WHERE userID = @userID";
+                cmd.Parameters.AddWithValue("@userID", userID);
+
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    musics = new List<Music>();
-                    int musicID;
-                    string artist;
-                    string album;
                     while (dr.Read())
                     {
-                        musicID = dr.GetInt32(0);
-                        artist = dr.GetString(1);
-                        album = dr.GetString(2);
+                        int musicID = dr.GetInt32(0);
+                        string artist = dr.GetString(1);
+                        string album = dr.GetString(2);
+
                         Music music = new Music(musicID, artist, album);
                         musics.Add(music);
                     }
@@ -56,10 +56,11 @@ namespace musicP.resources.database
                 {
                     if (dr.Read())
                     {
-                        var artist = dr.GetString(1);
-                        var album = dr.GetString(2);
-                        music = new Music(artist, album);
+                        int userID = dr.GetInt32(0);
+                        string artist = dr.GetString(1);
+                        string album = dr.GetString(2);
 
+                        music = new Music(musicID, userID, artist, album);
                     }
                 }
             }

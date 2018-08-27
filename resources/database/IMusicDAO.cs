@@ -8,7 +8,7 @@ namespace musicP.resources.database
 {
     interface IMusicDAO
     {
-        List<Music> getAllMusic();
+        List<Music> GetAllMusicByUserID(int userID);
         Music GetMusicByID(int musicID);
         void UpdateMusic(Music music);
         void InsertMusic(Music music);
