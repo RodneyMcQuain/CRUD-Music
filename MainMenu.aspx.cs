@@ -19,15 +19,30 @@ namespace musicP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            randomMusic();
+            if (!IsSession())
+            {
+                Response.Redirect("Default.aspx");
+                return;
+            }
+
+            RandomMusic();
         }
         
-        protected void randomMusic()
+        private bool IsSession()
+        {
+            if (Session["userID"] == null)
+                return false;
+            else
+                return true;
+        }
+
+        protected void RandomMusic()
         {
             Music randomMusic;
             if (Cache["randomMusic"] == null)
             {
-                List<Music> musics = musicDao.getAllMusic();
+                int userID = Convert.ToInt32(Session["userID"]);
+                List<Music> musics = musicDao.GetAllMusicByUserID(userID);
 
                 int musicsSize = musics.Count();
 
@@ -42,6 +57,7 @@ namespace musicP
                 }
                 else
                 {
+                    lblRandomMusic.Text = "";
                     return;
                 }
 
@@ -77,7 +93,8 @@ namespace musicP
 
             string artist = tbArtist.Text;
             string album = tbAlbum.Text;
-            Music music = new Music(artist, album);
+            int userID = Convert.ToInt32(Session["userID"]);
+            Music music = new Music(userID, artist, album);
 
             musicDao.InsertMusic(music);
 
