@@ -71,8 +71,13 @@ namespace musicP.resources.database
         void IMusicDAO.InsertMusic(Music music)
         {
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO music (artist, album) VALUES('" + music.artist + "', '" + music.album + "');", conn))
+            using (SqlCommand cmd = conn.CreateCommand())
             {
+                cmd.CommandText = "INSERT INTO music (userID, artist, album) VALUES(@userID, @artist, @album);";
+                cmd.Parameters.AddWithValue("@userID", music.userID);
+                cmd.Parameters.AddWithValue("@artist", music.artist);
+                cmd.Parameters.AddWithValue("@album", music.album);
+
                 cmd.ExecuteNonQuery();
             }
         }
