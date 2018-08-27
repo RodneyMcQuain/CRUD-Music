@@ -29,12 +29,22 @@ namespace musicP
             {
                 List<Music> musics = musicDao.getAllMusic();
 
-                Random rnd = new Random();
-                int randomMusicNum = rnd.Next(0, musics.Count());
+                int musicsSize = musics.Count();
 
-                randomMusic = musics[randomMusicNum];
+                if (musicsSize > 0)
+                {
+                    Random rnd = new Random();
+                    int randomMusicNum = rnd.Next(0, musics.Count());
 
-                Cache.Insert("randomMusic", randomMusic, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
+                    randomMusic = musics[randomMusicNum];
+
+                    Cache.Insert("randomMusic", randomMusic, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
+                }
+                else
+                {
+                    return;
+                }
+
             }
             else
             {
