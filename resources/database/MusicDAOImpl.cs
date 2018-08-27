@@ -16,7 +16,7 @@ namespace musicP.resources.database
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                cmd.CommandText = "SELECT * FROM music WHERE userID = @userID;";
+                cmd.CommandText = "SELECT musicID, artist, album FROM music WHERE userID = @userID;";
                 cmd.Parameters.AddWithValue("@userID", userID);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
