@@ -23,11 +23,11 @@ namespace musicP.resources.database
                 {
                     while (dr.Read())
                     {
-                        int musicID = dr.GetInt32(0);
-                        string artist = dr.GetString(1);
-                        string album = dr.GetString(2);
+                        int musicID = dr.GetInt32(1);
+                        string artist = dr.GetString(2);
+                        string album = dr.GetString(3);
 
-                        Music music = new Music(musicID, artist, album);
+                        Music music = new Music(musicID, userID, artist, album);
                         musics.Add(music);
                     }
                 }
