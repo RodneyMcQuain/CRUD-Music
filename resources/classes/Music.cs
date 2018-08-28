@@ -33,6 +33,13 @@ namespace musicP
             this.genre = genre;
         }
 
+        public Music(int userID, string artist, string album)
+        {
+            this.userID = userID;
+            this.artist = artist;
+            this.album = album;
+        }
+
         override
         public string ToString()
         {
