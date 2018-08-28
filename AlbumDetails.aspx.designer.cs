@@ -40,6 +40,24 @@ namespace musicP {
         protected global::System.Web.UI.WebControls.TextBox tbAlbumAlbumDetails;
         
         /// <summary>
+        /// tbYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbYear;
+        
+        /// <summary>
+        /// tbGenre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbGenre;
+        
+        /// <summary>
         /// btUpdate control.
         /// </summary>
         /// <remarks>
