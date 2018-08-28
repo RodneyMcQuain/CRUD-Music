@@ -1,5 +1,6 @@
 ﻿using musicP.resources.classes;
 using musicP.resources.database;
+using musicP.resources.utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,9 @@ namespace musicP
 
         protected void btRegister_Click(object sender, EventArgs e)
         {
-            if (EmptyControl(tbUsername) ||
-                EmptyControl(tbPassword) ||
-                EmptyControl(tbPasswordCheck))
+            if (GUIUtils.EmptyControl(tbUsername) ||
+                GUIUtils.EmptyControl(tbPassword) ||
+                GUIUtils.EmptyControl(tbPasswordCheck))
             {
                 Alert("Empty Field", "The fields cannot be empty.");
                 return;
@@ -52,14 +53,6 @@ namespace musicP
 
             Alert("Registration", "You have been registered.");
             Response.Redirect("Default.aspx");
-        }
-
-        private bool EmptyControl(TextBox control)
-        {
-            if (control.Text.Trim().Equals(""))
-                return true;
-            else
-                return false;
         }
 
         private bool IsValidUsername(string username)
