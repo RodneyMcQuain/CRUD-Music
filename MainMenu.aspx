@@ -19,21 +19,21 @@
     <div class="center-container">
 
         <div class="general-contianer">
-            <asp:TextBox ID="tbArtist" runat="server" CssClass="form-control input-lg" placeholder="Artist"></asp:TextBox>
-            <asp:TextBox ID="tbAlbum" runat="server" CssClass="form-control input-lg" placeholder="Album"></asp:TextBox>
+            <asp:TextBox ID="tbArtist" runat="server" CssClass="form-control input-lg main-menu-artist-album" placeholder="Artist"></asp:TextBox>
+            <asp:TextBox ID="tbAlbum" runat="server" CssClass="form-control input-lg main-menu-artist-album" placeholder="Album"></asp:TextBox>
             <asp:LinkButton ID="addButton" runat="server" CssClass="btn btn-lg" OnClick="addButton_Click">
                 <span aria-hidden="true" class="fa fa-plus"></span>
             </asp:LinkButton>
         </div>
 
         <div class="container" style="margin-top: 10px; width: 500px; height: 250px; overflow-y: scroll; overflow-x: hidden;">
-            <asp:GridView ID="musicGrid" DataKeyNames="musicID" runat="server" AutoGenerateColumns="False" CssClass="table table-hover table-stripped music-grid-header" 
+            <asp:GridView ID="musicGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-hover table-stripped music-grid-header"
                 HorizontalAlign="Center" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlDataSource1" 
-                ForeColor="Black" GridLines="Horizontal" Width="500px" OnSelectedIndexChanging="GridView1_SelectedIndexChanged" AllowSorting="True">
+                ForeColor="Black" GridLines="Horizontal" Width="500px" OnSelectedIndexChanging="GridView1_SelectedIndexChanged" AllowSorting="True" DataKeyNames="musicID">
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />
-                    <asp:BoundField DataField="artist" HeaderText="Artist" SortExpression="artist" />
-                    <asp:BoundField DataField="album" HeaderText="Album" />
+                    <asp:BoundField DataField="artist" HeaderText="artist" SortExpression="artist" />
+                    <asp:BoundField DataField="album" HeaderText="album" SortExpression="album" />
                 </Columns>
                 <RowStyle Height="50px"/>
                 <AlternatingRowStyle Height="50px"/>
@@ -46,7 +46,11 @@
                 <SortedDescendingCellStyle BackColor="#E5E5E5" />
                 <SortedDescendingHeaderStyle BackColor="#242121" />
             </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MusicConnectionString %>" SelectCommand="SELECT * FROM [music]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MusicConnectionString %>" SelectCommand="SELECT musicID, artist, album FROM music WHERE userID = @userID">
+                <SelectParameters>
+                    <asp:SessionParameter Name="userID" SessionField="userID" />
+                </SelectParameters>
+            </asp:SqlDataSource>
         </div>
 
         <div class="container text-center" style="padding-top: 10px">
