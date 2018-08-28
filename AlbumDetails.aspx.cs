@@ -61,7 +61,7 @@ namespace musicP
 
             musicDao.DeleteMusicByID(musicID);
 
-            Response.Redirect("default.aspx");
+            Response.Redirect("MainMenu.aspx");
         }
     }
 }
