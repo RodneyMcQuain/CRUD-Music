@@ -16,7 +16,7 @@ namespace musicP.resources.database
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                cmd.CommandText = "SELECT musicID, artist, album FROM music WHERE userID = @userID;";
+                cmd.CommandText = "SELECT musicID, artist, album, year, genre FROM music WHERE userID = @userID;";
                 cmd.Parameters.AddWithValue("@userID", userID);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
@@ -26,8 +26,10 @@ namespace musicP.resources.database
                         int musicID = dr.GetInt32(0);
                         string artist = dr.GetString(1);
                         string album = dr.GetString(2);
+                        int year = dr.GetInt32(3);
+                        string genre = dr.GetString(4);
 
-                        Music music = new Music(musicID, userID, artist, album);
+                        Music music = new Music(musicID, userID, artist, album, year, genre);
                         musics.Add(music);
                     }
                 }
@@ -43,7 +45,7 @@ namespace musicP.resources.database
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                cmd.CommandText = "SELECT userID, artist, album FROM music WHERE musicID = @musicID;";
+                cmd.CommandText = "SELECT userID, artist, album, year, genre FROM music WHERE musicID = @musicID;";
                 cmd.Parameters.AddWithValue("@musicID", musicID);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
@@ -53,8 +55,10 @@ namespace musicP.resources.database
                         int userID = dr.GetInt32(0);
                         string artist = dr.GetString(1);
                         string album = dr.GetString(2);
+                        int year = dr.GetInt32(3);
+                        string genre = dr.GetString(4);
 
-                        music = new Music(musicID, userID, artist, album);
+                        music = new Music(musicID, userID, artist, album, year, genre);
                     }
                 }
             }
@@ -81,9 +85,11 @@ namespace musicP.resources.database
             using (SqlConnection conn = Helpers.DBUtils.getConnection())
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                cmd.CommandText = "UPDATE music SET artist = @artist, album = @album WHERE musicID = @musicID;";
+                cmd.CommandText = "UPDATE music SET artist = @artist, album = @album, year = @year, genre = @genre WHERE musicID = @musicID;";
                 cmd.Parameters.AddWithValue("@artist", music.artist);
                 cmd.Parameters.AddWithValue("@album", music.album);
+                cmd.Parameters.AddWithValue("@year", music.year);
+                cmd.Parameters.AddWithValue("@genre", music.genre);
                 cmd.Parameters.AddWithValue("@musicID", music.musicID);
 
                 cmd.ExecuteReader();
