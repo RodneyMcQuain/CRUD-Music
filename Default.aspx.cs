@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace musicP
@@ -13,7 +14,13 @@ namespace musicP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            HideNavbar();
+        }
 
+        private void HideNavbar()
+        {
+            HtmlControl navbar = (HtmlControl)Master.FindControl("navbar");
+            navbar.Visible = false;
         }
 
         protected void btLogin_Click(object sender, EventArgs e)
