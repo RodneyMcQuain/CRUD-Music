@@ -13,5 +13,12 @@ namespace musicP
         {
 
         }
+
+        protected void btLogout_Click(object sender, EventArgs e)
+        {
+            Session["userID"] = null;
+            Response.Redirect("Default.aspx");
+        }
+
     }
 }

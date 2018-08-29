@@ -53,6 +53,9 @@
                         <li><a runat="server" id="liHome" href="~/MainMenu">Home</a></li>
                         <li><a runat="server" id="liAbout" href="~/About">About</a></li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><asp:LinkButton ID="btLogout" runat="server" CausesValidation="False" OnClick="btLogout_Click">Logout</asp:LinkButton></li>
+                    </ul>
                 </div>
             </div>
         </div>
