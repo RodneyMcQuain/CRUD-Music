@@ -12,7 +12,7 @@
 
     <div style="background-image: url('assets/images/vinyl.jpg'); background-repeat: no-repeat; background-size: 100%; padding: 0px; height: 275px;">
          <div class="text-center" style="padding: 1%;">
-            <h1 style="position: absolute; color: #f2f2f2; top: 200px; left: 44%; margin-top: 50px; font-size: 40px;">Music Program</h1>
+            <h1 style="position: absolute; color: #f2f2f2; top: 200px; left: 44%; margin-top: 50px; font-size: 40px;">CRUD Music</h1>
         </div>
     </div>
 
